@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+
+@theme {
+  --font-raleway: "Raleway", sans-serif;
+  --breakpoint-1920: 1940px;
+  --breakpoint-1350: 1350px;
+}
+
+@layer base {
+    *{
+      font-family: "Raleway", sans-serif !important;
+    }
+
+    input,
+    button,
+    textarea,
+    select, span {
+      font: inherit;
+    }
+}
