@@ -26,7 +26,7 @@ function Banner({
         <div
             className={`${className} ${
                 col ? "flex flex-col-reverse" : "flex"
-            } gap-6 text-[#FFFFFF] bg-gradient-to-r from-[#013DA0] to-[#0375F3]`}
+            } gap-6 text-6f bg-gradient-to-r from-[#013DA0] to-[#0375F3]`}
         >
             <div className=" flex flex-col gap-4 px-6 items-start justify-center">
                 {des && (

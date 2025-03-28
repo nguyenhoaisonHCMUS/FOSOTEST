@@ -250,7 +250,7 @@ function Page() {
         <>
             <div className="max-1920:max-w-[1440px] max-w-[1800px] 1920:w-[80%] w-[90%] mx-auto lg:grid !lg:grid-cols-[2fr_1fr] flex flex-col gap-8">
                 <div className="lg:col-span-2">
-                    <Breadcrumb />
+                    <Breadcrumb breadcrumbTitle={data.category} />
                 </div>
                 <div className="">
                     <div className="flex flex-col gap-3">

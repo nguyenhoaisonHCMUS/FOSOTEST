@@ -6,11 +6,16 @@
   --font-raleway: "Raleway", sans-serif;
   --breakpoint-1920: 1940px;
   --breakpoint-1350: 1350px;
+  --color-6f: #FFFFFF;
+  --color-bg-primary: #F9FBFC;
 }
 
 @layer base {
     *{
       font-family: "Raleway", sans-serif !important;
+    }
+    body{
+      background-color: (--color-bg-primary);
     }
 
     input,

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React, { useState } from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import SwitchLan from "./SwitchLan";
@@ -55,11 +55,12 @@ export const navigations: NavItem[] = [
 ];
 function DesktopHeader() {
     const router = useRouter();
+    const pathname = usePathname();
     const [hovered, setHovered] = useState<string | null>(null);
 
     return (
         <header className="">
-            <div className=" mt-5 w-10/12 max-[1940px]:max-w-[1280px] rounded-full mx-auto bg-white flex items-center justify-center 1920:justify-between py-[14px] px-6 gap-16  shadow-lg">
+            <div className=" mt-5 w-11/12 1350:w-[1280px] 1920:w-[70%] rounded-full mx-auto bg-6f/65 backdrop-blur-[25px] shadow-[rgba(0,0,0,0.05)_-9px_20px_60px_-24px] flex items-center justify-center 1920:justify-between py-[14px] px-6 gap-16">
                 <div className=" relative w-[134px] h-[55px] lg:w-48">
                     <Image
                         src="/images/logo.png"
@@ -70,40 +71,49 @@ function DesktopHeader() {
                     />
                 </div>
                 <nav className="flex gap-6 items-center">
-                    {navigations.map((nav) => (
-                        <div
-                            key={nav.name}
-                            className="relative"
-                            onMouseEnter={() => setHovered(nav.name)}
-                            onMouseLeave={() => setHovered(null)}
-                        >
-                            <button
-                                className="flex items-center gap-1 text-[#25272A] font-medium text-sm hover:cursor-pointer transition relative after:content-[''] after:absolute after:left-0 after:top-5 after:h-[40px] after:bg-transparent after:transition-all after:duration-300 hover:after:w-full"
-                                onClick={() => router.push(nav.href)}
+                    {navigations.map((nav) => {
+                        const isActive =
+                            pathname === nav.href ||
+                            nav.sub?.some((sub) =>
+                                pathname.startsWith(sub.href)
+                            );
+                        return (
+                            <div
+                                key={nav.name}
+                                className="relative"
+                                onMouseEnter={() => setHovered(nav.name)}
+                                onMouseLeave={() => setHovered(null)}
                             >
-                                {nav.name}
-                                {nav.sub && (
-                                    <ExpandMoreIcon className="w-4 h-4" />
-                                )}
-                            </button>
+                                <button
+                                    className={`flex text-[#25272A] items-center gap-1 text-sm hover:cursor-pointer transition relative after:content-[''] after:absolute after:left-0 after:top-5 after:h-[40px] after:bg-transparent after:transition-all after:duration-300 hover:after:w-full ${
+                                        isActive ? "font-bold" : "font-medium"
+                                    }`}
+                                    onClick={() => router.push(nav.href)}
+                                >
+                                    {nav.name}
+                                    {nav.sub && (
+                                        <ExpandMoreIcon className="w-4 h-4" />
+                                    )}
+                                </button>
 
-                            {nav.sub && hovered === nav.name && (
-                                <div className="absolute left-0 mt-8 w-48 bg-white shadow-lg rounded-md z-50">
-                                    {nav.sub.map((sub) => (
-                                        <button
-                                            key={sub.name}
-                                            onClick={() =>
-                                                router.push(sub.href)
-                                            }
-                                            className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
-                                        >
-                                            {sub.name}
-                                        </button>
-                                    ))}
-                                </div>
-                            )}
-                        </div>
-                    ))}
+                                {nav.sub && hovered === nav.name && (
+                                    <div className="absolute left-0 mt-8 w-48 bg-white shadow-lg rounded-md z-50">
+                                        {nav.sub.map((sub) => (
+                                            <button
+                                                key={sub.name}
+                                                onClick={() =>
+                                                    router.push(sub.href)
+                                                }
+                                                className="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100"
+                                            >
+                                                {sub.name}
+                                            </button>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        );
+                    })}
                 </nav>
                 <div className=" flex items-center justify-end gap-3">
                     <SwitchLan />

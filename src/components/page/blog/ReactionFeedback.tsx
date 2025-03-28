@@ -115,7 +115,7 @@ export default function ReactionFeedback() {
     };
 
     return (
-        <div className="">
+        <div className=" mt-5 flex items-center flex-col bg-6f rounded-3xl py-6">
             <Typography variant="h6">Bạn thấy bài viết như thế nào?</Typography>
             <Typography variant="body2" sx={{ mb: 2 }}>
                 {Object.values(counts).reduce((a, b) => a + b, 0)} phản hồi

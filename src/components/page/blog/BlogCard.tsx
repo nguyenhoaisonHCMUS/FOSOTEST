@@ -1,15 +1,23 @@
+"use client";
+
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { Box, Button, Card, CardContent, CardMedia } from "@mui/material";
 import { IBlog } from "@/types";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 type BlogCardProps = {
     item: IBlog;
     className?: string;
 };
 function BlogCard({ item, className }: BlogCardProps) {
+    const router = useRouter();
+
+    const handleClick = (id: number) => {
+        router.push(`/resources/blog/${id}`);
+    };
     return (
         <Card
             sx={{
@@ -45,7 +53,7 @@ function BlogCard({ item, className }: BlogCardProps) {
 
                 {/* Tiêu đề */}
                 <Link href={`/resources/blog/${item.id}`}>
-                    <p className=" text-base md:text-2xl font-extrabold">
+                    <p className=" text-base md:text-2xl font-extrabold text-[#33404A]">
                         {item.title}
                     </p>
                 </Link>
@@ -53,11 +61,13 @@ function BlogCard({ item, className }: BlogCardProps) {
                 {/* Ngày và thời gian đọc */}
                 <Box display="flex" alignItems="center" gap={1} color="gray">
                     <CalendarMonthIcon fontSize="small" />
-                    <p className=" text-[12px] md:text-base">
+                    <p className=" text-[12px] md:text-base text-[#667F93]">
                         {new Date(item.createdAt).toLocaleDateString()}
                     </p>
                     <AccessTimeIcon fontSize="small" />
-                    <p className=" text-[12px] md:text-base">10 phút đọc</p>
+                    <p className=" text-[12px] md:text-base text-[#667F93]">
+                        10 phút đọc
+                    </p>
                 </Box>
 
                 {/* Button Khám phá thêm */}
@@ -66,6 +76,7 @@ function BlogCard({ item, className }: BlogCardProps) {
                     className=" text-sm md:text-lg font-semibold w-fit items-start"
                     sx={{ color: "#667F93" }}
                     endIcon={<ArrowForwardIcon />}
+                    onClick={() => handleClick(item.id)}
                 >
                     Khám phá thêm
                 </Button>
